@@ -1,0 +1,530 @@
+{% load static %}
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="{% static 'main/css/application.css' %}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+
+    <title>Главная страница</title>
+</head>
+<body>
+
+
+
+
+
+<!--<nav class="navbar bg-red">-->
+<!--  <div class="container-fluid d-flex justify-content-space-between align-middle" style="height: 30px">-->
+<!--      <a class="navbar-brand nav-link text-light fs-4 fw-medium"> <img height="18px" src="{% static 'main/images/lk_icon.png' %}"> личный кабинет</a>-->
+<!--      <a class="navbar-brand nav-link  text-light fs-4 fw-medium"> <img height="18px" src="{% static 'main/images/email_icon.png' %}"> game@linefire.ru</a>-->
+<!--      <a class="navbar-brand nav-link text-light fs-5 fw-medium"> <img height="19px" src="{% static 'main/images/phone_icon.png' %}"> +7 914 489-35-48</a>-->
+<!--  </div>-->
+<!--</nav>-->
+
+
+<!--Навигация-->
+
+<style>
+    .hover-link {
+    color: white;
+         transition: color 0.4s ease;
+}
+.hover-link:hover {
+    color: red;
+}
+
+</style>
+
+<nav class="navbar navbar-expand-lg bg-black ">
+  <div class="container-fluid container" >
+    <a class="navbar-brand"><img class="logo-hw" src="{% static 'main/images/LogoLF.svg' %}"></a>
+    <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Переключатель навигации">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0 text-nowrap" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+<!--         <li class="nav-item sdc">-->
+<!--                <a class="nav-link disabled text-light fs-2 text">СИЛА ДОБЛЕСТЬ ЧЕСТЬ</a>-->
+<!--        </li>-->
+        <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Статистика боёв</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Полигоны</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Сценарии</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Контакты</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</nav>
+<!--Конец-Навигация-->
+
+
+
+<!--СЛАЙДЕР-->
+<div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active visually-hidden" aria-current="true" aria-label="Slide 1"></button>
+    <button class="visually-hidden" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button class="visually-hidden" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'main/images/fon2_lk.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h2 class="text-start fw-bold">РЕАЛИСТИЧНЫЕ ЛАЗЕРТАГ ИГРЫ</h2>
+        <h4 class="text-start">В условиях максимально приближенных к боевым, где ты можешь положиться только на свой ум, отвагу и на своих друзей</h4>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'main/images/fon3_lk.png' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h2 class="fw-bold">АЗАРТ И АДРЕНАЛИН</h2>
+        <h4>И того и другого у нас с избытком, присоединяйся, играй и получай море эмоций на самых крутых картах</h4>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'main/images/fon2_lk.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h2 class="text-end fw-bold">БОЕВАЯ ПОДГОТОВКА</h2>
+        <h4 class="text-end">Играй с нами и получай отличную боевую тактическую подготовку в условиях настоящего боя</h4>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Предыдущий</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Следующий</span>
+  </button>
+</div>
+<!--КОНЕЦ-СЛАЙДЕР-->
+
+<div class="mesh-bg">
+
+<!--ЧТО ТАКОЕ ЛАЗЕРТАГ?-->
+<style>
+    .mesh-bg {
+            background: url('{% static 'main/images/fon_vhod.png' %}');
+            background-repeat: no-repeat;
+            background-size: cover;
+    }
+</style>
+
+    <div class="container">
+        <div class="row g-3 pt-5">
+            <div class="col-sm-6">
+                <h2 style="color:#fc0e0e">ЧТО ТАКОЕ ЛАЗЕРТАГ?</h2>
+                </br>
+                <p class="fs-5 text-container">Если коротко - это активная игра схожая с пейнтболом или страйкболом, но вместо шариков для поражения, использующая инфракрасные лучи.</p>
+                <p class="fs-5 text-container"> Вы получаете оружие, а на вашего противника цепляют лазерную метку, которая фиксирует попадение. Когда игрок «убит» оружие автоматически отключается – сжульничать не получится. В итоге получается очень честно и совсем не больно. Именно поэтому в лазертаге можно полностью сосредоточится на стратегии и тактике боя, а дальность поражения до 400 метров делает бой полностью настоящим.</p>
+            </div>
+            <div class="col-sm-6">
+                <h2 style="color:#fc0e0e">ЧЕМ ОН УНИКАЛЕН?</h2>
+                </br>
+                <p class="fs-5">- Отсутствие болевых ощущений</p>
+                <p class="fs-5">- 100% фиксация попадания</p>
+                <p class="fs-5">- Дальность стрельбы до 400 метров</p>
+                <p class="fs-5">- Возможность игры на любом полигоне или вовсе без него</p>
+                <p class="fs-5">- Неограниченный боезапас</p>
+                <p class="fs-5">- Игры совершенно без возрастных ограничений</p>
+            </div>
+        </div>
+        <div class="text-center pt-5 pb-5">
+            <a href="" class="nav-link fw-bold fs-3 text text-secondary">Узнать больше</a>
+        </div>
+    </div>
+<!--КОНЕЦ-ЧТО ТАКОЕ ЛАЗЕРТАГ?-->
+
+
+<!--ВИДЕО-->
+<style>
+        .container-monitor {
+            position: relative;
+            width: max-content;
+        }
+        .monitor-img {
+            max-height: 500px;
+            display: block;
+        }
+        .video-frame {
+            position: absolute;
+            top: 5%;
+            left: 4%;
+            width: 92%;
+            height: 76%;
+        }
+        .monitor-bg{
+            background: url('{% static 'main/images/bg-monitor.jpg' %}');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        @media (max-width: 720px) {
+        .video-frame {
+            position: absolute;
+            top: 4%;
+            left: 5%;
+            width: 90%;
+            height: 77%;
+        }
+        }
+        @media (max-width: 640px) {
+        .video-frame {
+            position: absolute;
+            top: 4%;
+            left: 5.5%;
+            width: 89%;
+            height: 77%;
+        }
+        }
+        @media (max-width: 575px) {
+        .video-frame {
+            position: absolute;
+            top: 3.5%;
+            left: 6%;
+            width: 88%;
+            height: 77%;
+        }
+        }
+    </style>
+
+<div class="monitor-bg pt-5 pb-5">
+    <div class="container container-monitor">
+        <img src="{% static 'main/images/laptop.png' %}" class="monitor-img" alt="Монитор">
+        <iframe src="https://www.youtube.com/embed/JT1NtRb7J2I?rel=0&controls=0&showinfo=0" class="video-frame" title="YouTube video" allowfullscreen></iframe>
+    </div>
+</div>
+<!--КОНЕЦ-ВИДЕО-->
+
+
+
+
+
+
+    <div class="container">
+
+
+<!--Военно-тактический клуб «Линия Огня»-->
+        <style>
+            @media (max-width: 991px) {
+            .center-on-small {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+        }
+        </style>
+
+        <div class="row g-3 pb-5 pt-5" id="wrap-logo-indicators3">
+            <div class="col-sm-3 center-on-small" id="wrap-logo-indicators">
+                <a class="navbar-brand"><img class="logo-hw" src="{% static 'main/images/LOGO-black.svg' %}"></a>
+            </div>
+            <div class="col-sm-9" id="wrap-logo-indicators2">
+                <p class="fs-5">Военно-тактический клуб «Линия Огня» рад предложить вам отличную идею для отдыха в Чите – лазертаг для компании. Это увлекательное развлечение для взрослых и детей.</p>
+                <p class="fs-5">Игра в лазертаг идеально подойдет как для начинающих любителей стрелялок, так и для профессионалов. В Чите можно сыграть в лазертаг по-настоящему и испытать невероятные эмоции обратившись к услугам нашего клуба. Мы организовываем лазертаг отдых по самым выгодным ценам. Игры проводятся под руководством лучших инструкторов по лазертагу в Чите.</p>
+                <a href="" class="nav-link fw-bold fs-3 text text-secondary">Узнать больше</a>
+            </div>
+        </div>
+
+
+        <script>
+        function checkWidth() {
+            var indicators = document.getElementById('wrap-logo-indicators');
+            if (window.innerWidth < 992) {
+                indicators.classList.add('col-sm-12');
+            } else {
+                indicators.classList.remove('col-sm-12');
+            }
+
+            var indicators2 = document.getElementById('wrap-logo-indicators2');
+            if (window.innerWidth < 992) {
+                indicators2.classList.add('col-sm-12');
+            } else {
+                indicators2.classList.remove('col-sm-12');
+            }
+
+            var indicators3 = document.getElementById('wrap-logo-indicators3');
+            if (window.innerWidth < 992) {
+                indicators3.classList.add('pt-3');
+                indicators3.classList.remove('pt-5');
+            } else {
+                indicators3.classList.add('pt-5');
+            }
+        }
+
+        window.onload = checkWidth;
+
+        window.onresize = checkWidth;
+    </script>
+<!--КОНЕЦ-Военно-тактический клуб «Линия Огня»-->
+
+
+
+
+<!--ПОЧЕМУ ИГРА У НАС ЭТО КРУТО?-->
+<style>
+        .icon-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .icon-item img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .icon-item p {
+            font-size: 14px;
+            color: #000;
+        }
+</style>
+
+    <div>
+        <div class="text-center pb-5">
+            <p  class=" fw-bold fs-2  " style="color:#fc0e0e">ПОЧЕМУ ИГРА У НАС ЭТО КРУТО?</p>
+        </div>
+        <div class="icon-container">
+            <div class="icon-item">
+                <img src="{% static 'main/images/card/card-1.png' %}" alt="Иконка 1">
+                <p class="fs-5">Глобальное противостояние двух сторон. Выбирай на какой стороне ты</p>
+            </div>
+            <div class="icon-item">
+                <img src="{% static 'main/images/card/card-2.png' %}" alt="Иконка 2">
+                <p class="fs-5">Звания, форма и уникальный жетон</p>
+            </div>
+            <div class="icon-item">
+                <img src="{% static 'main/images/card/card-3.png' %}" alt="Иконка 3">
+                <p class="fs-5">Профессиональные инструкторы</p>
+            </div>
+            <div class="icon-item">
+                <img src="{% static 'main/images/card/card-4.png' %}" alt="Иконка 4">
+                <p class="fs-5">Накопительная статистика по каждому игроку</p>
+            </div>
+            <div class="icon-item">
+                <img src="{% static 'main/images/card/card-5.png' %}" alt="Иконка 5">
+                <p class="fs-5">Огромное количество игровых карт и сценариев на любой вкус</p>
+            </div>
+            <div class="icon-item">
+                <img src="{% static 'main/images/card/card-6.png' %}" alt="Иконка 6">
+                <p class="fs-5">Тренировки и обучение военному искусству по всем правилам</p>
+            </div>
+
+
+<style>
+     @media (max-width: 1199px) {
+            .icon-item1 {
+                display: none;
+            }
+            }
+     /*@media (max-width: 991px) {*/
+     /*       .icon-item1 {*/
+     /*           display: block;*/
+     /*       }*/
+     /*       }*/
+</style>
+            <div class="icon-item icon-item1">
+                <img src="{% static 'main/images/card/card-7.png' %}" alt="Иконка 7">
+                <p class="fs-5">Дружеская атмосфера и новые знакомства</p>
+            </div>
+            <div class="icon-item  icon-item1">
+                <img src="{% static 'main/images/card/card-8.png' %}" alt="Иконка 8">
+                <p class="fs-5">Организация праздника, пикника или застолья в сочетании с игрой</p>
+            </div>
+
+
+        </div>
+    </div>
+
+        <script>
+        function checkWidth() {
+            var footer = document.getElementById('icon-item1');
+            if (window.innerWidth < 1200) {
+                footer.classList.add('icon-item1');
+            } else {
+                footer.classList.remove('icon-item1');
+            }
+        }
+
+        window.onload = checkWidth;
+
+        window.onresize = checkWidth;
+    </script>
+<!--КОНЕЦ-ПОЧЕМУ ИГРА У НАС ЭТО КРУТО?-->
+
+
+
+<!--КАРУСЕЛЬ-2-->
+<div class="pb-5">
+<div id="carouselExampleIndicators" class="carousel slide mt-5 m-5 mb-5">
+  <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7" aria-label="Slide 8"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8" aria-label="Slide 9"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9" aria-label="Slide 10"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10" aria-label="Slide 11"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11" aria-label="Slide 12"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12" aria-label="Slide 13"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13" aria-label="Slide 14"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14" aria-label="Slide 15"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15" aria-label="Slide 16"></button>
+  </div>
+  <div class="carousel-inner ">
+      <div class="carousel-item active">
+      <img src="{% static 'main/images/slider-1/1.png' %}" class="d-block w-100" alt="..." >
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/2.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/3.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/4.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/5.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/6.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/7.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/8.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/9.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/10.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/11.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/12.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/13.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/14.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/15.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'main/images/slider-1/16.png' %}" class="d-block w-100 " alt="..." >
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Предыдущий</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Следующий</span>
+  </button>
+</div>
+</div>
+<!--КОНЕЦ-КАРУСЕЛЬ-2-->
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<style>
+            @media (max-width: 900px) {
+            .center-on-small1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .write-small {
+                margin-top: 10px;
+            }
+        }
+        </style>
+
+<div class="bg-black text-light pt-5 pb-5 fs-3">
+    <div class="container center-on-small1">
+        <div class="d-flex justify-content-between " id="wrap-footer-indicators">
+            <div class="qweasd">
+                <a class=" navbar-brand " href=""><img src="{% static 'main/images/LogoLF.SVG' %}"></a>
+            </div>
+            <div class="d-inline-block flex-row">
+                <p class="write-small" id="wrap-footer-text1">Написать:</p>
+                <a class=" navbar-brand"><img src="{% static 'main/images/email_icon.png' %}"> game@linefire.ru</a>
+                <a href="https://vk.com/linefire75" class=" navbar-brand"><img style="max-width: 30px" src="{% static 'main/images/vk-2.svg' %}"> linefire75</a>
+            </div>
+            <div class="d-inline flex-row">
+                <p class="write-small" id="wrap-footer-text">Позвонить:</p>
+                <a class="navbar-brand "><img src="{% static 'main/images/phone_icon.png' %}"> (3022) 71-74-00</a>
+                </br>
+                <a class="navbar-brand "><img src="{% static 'main/images/phone_icon.png' %}"> +7 914 489-35-48</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        function checkWidth() {
+            var footer = document.getElementById('wrap-footer-indicators');
+            if (window.innerWidth < 900) {
+                footer.classList.remove('d-flex');
+                footer.classList.remove('justify-content-between');
+            } else {
+                footer.classList.add('d-flex');
+                footer.classList.add('justify-content-between');
+            }
+
+
+        }
+
+        window.onload = checkWidth;
+
+        window.onresize = checkWidth;
+    </script>
+
+
+</body>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>

@@ -14,7 +14,7 @@
 
 <nav class="navbar navbar-expand-lg bg-black ">
   <div class="container-fluid container" >
-    <a class="navbar-brand"><img class="logo-hw" src="{% static 'main/images/LogoLF.svg' %}"></a>
+    <a href="{% url 'mainpage' %}" class="navbar-brand"><img class="logo-hw" src="{% static 'main/images/LogoLF.svg' %}"></a>
     <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Переключатель навигации">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,19 +24,19 @@
 <!--                <a class="nav-link disabled text-light fs-2 text">СИЛА ДОБЛЕСТЬ ЧЕСТЬ</a>-->
 <!--        </li>-->
         <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Статистика боёв</a>
+          <a class="nav-link fw-bold fs-3 text hover-link" href="{% url 'statistics' %}"><img src="{% static 'main/images/star_menu.png' %}"> Статистика боёв</a>
         </li>
           <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Полигоны</a>
+          <a class="nav-link fw-bold fs-3 text hover-link" href="{% url 'polygons' %}"><img src="{% static 'main/images/star_menu.png' %}"> Полигоны</a>
         </li>
           <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Сценарии</a>
+          <a class="nav-link fw-bold fs-3 text hover-link" href="{% url 'scenarios' %}"><img src="{% static 'main/images/star_menu.png' %}"> Сценарии</a>
         </li>
           <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Контакты</a>
+          <a class="nav-link fw-bold fs-3 text hover-link" href="{% url 'about' %}"><img src="{% static 'main/images/star_menu.png' %}"> Контакты</a>
         </li>
           <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
+          <a class="nav-link fw-bold fs-3 text hover-link" href="{% url 'cabinet' %}"><img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
         </li>
       </ul>
     </div>

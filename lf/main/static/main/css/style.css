@@ -1,61 +1,99 @@
-
-
-/*374*/
-/*575*/
-    @media (max-width: 720px) {
-  .container-monitor {
-      max-width: 500px;
-  }
+/*ВИДЕО*/
+.container-monitor {
+            position: relative;
+            width: max-content;
+}
+.monitor-img {
+            max-height: 500px;
+            display: block;
+}
+.video-frame {
+            position: absolute;
+            top: 5%;
+            left: 4%;
+            width: 92%;
+            height: 76%;
+}
+@media (max-width: 720px) {
+    .container-monitor {
+            max-width: 500px;
     }
-
-    @media (max-width: 640px) {
+}
+@media (max-width: 640px) {
   .container-monitor {
-      max-width: 400px;
+            max-width: 400px;
   }
-    }
-
-    @media (max-width: 575px) {
-        .container-monitor {
+}
+@media (max-width: 575px) {
+    .container-monitor {
             max-width: 300px;
-        }
     }
+}
+@media (max-width: 720px) {
+    .video-frame {
+            position: absolute;
+            top: 4%;
+            left: 5%;
+            width: 90%;
+            height: 77%;
+    }
+}
+@media (max-width: 640px) {
+    .video-frame {
+            position: absolute;
+            top: 4%;
+            left: 5.5%;
+            width: 89%;
+            height: 77%;
+    }
+}
+@media (max-width: 575px) {
+    .video-frame {
+            position: absolute;
+            top: 3.5%;
+            left: 6%;
+            width: 88%;
+            height: 77%;
+    }
+}
+/*КОНЕЦ-ВИДЕО*/
 
+/*Военно-тактический клуб «Линия Огня*/
+ @media (max-width: 991px) {
+     .center-on-small {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+     }
 
+ }
+/*КОНЕЦ-Военно-тактический клуб «Линия Огня*/
 
-/*    @media (max-width: 1300px) {*/
-/*  .logo-hw {*/
-/*      height: 80px;*/
-/*  }}*/
-/* @media (max-width: 1200px) {*/
-/*  .logo-hw {*/
-/*      height: 70px;*/
-/*  }}*/
-/* @media (max-width: 1000px) {*/
-/*  .logo-hw {*/
-/*      height: 60px;*/
-/*  }}*/
-/*@media (max-width: 600px) {*/
-/*  .logo-hw {*/
-/*      height: 50px;*/
-/*  }}*/
-
-/*   @media (min-width: 1920px) {*/
-/*  .logo-hw{*/
-/*    padding-left: 275px;*/
-/*}}*/
-
-/* @media (min-width: 1440px) {*/
-/*  .logo-hw{*/
-/*    padding-left: 150px;*/
-/*}}*/
-
-/* @media (min-width: 992px) {*/
-/*  .logo-hw{*/
-/*    padding-left: 25px;*/
-/*}}*/
-
-/* @media (max-width: 440px) {*/
-/*  .logo-hw{*/
-/*    padding-left: 25px;*/
-/*}}*/
-
+/*ПОЧЕМУ ИГРА У НАС ЭТО КРУТО?*/
+ .icon-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+ }
+.icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+}
+.icon-item img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+}
+.icon-item p {
+            font-size: 14px;
+            color: #000;
+}
+@media (max-width: 1199px) {
+    .icon-item1 {
+            display: none;
+    }
+}
+/*КОНЕЦ-ПОЧЕМУ ИГРА У НАС ЭТО КРУТО?*/

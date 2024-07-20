@@ -1,0 +1,123 @@
+{% load static %}
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="{% static 'main/css/application.css' %}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<!--Навигация-->
+<style>
+    .hover-link {
+    color: white;
+         transition: color 0.4s ease;
+}
+.hover-link:hover {
+    color: red;
+}
+
+</style>
+
+<nav class="navbar navbar-expand-lg bg-black ">
+  <div class="container-fluid container" >
+    <a class="navbar-brand"><img class="logo-hw" src="{% static 'main/images/LogoLF.svg' %}"></a>
+    <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Переключатель навигации">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0 text-nowrap" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+<!--         <li class="nav-item sdc">-->
+<!--                <a class="nav-link disabled text-light fs-2 text">СИЛА ДОБЛЕСТЬ ЧЕСТЬ</a>-->
+<!--        </li>-->
+        <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Статистика боёв</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Полигоны</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Сценарии</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Контакты</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</nav>
+<!--Конец-Навигация-->
+
+
+
+{% block content %}
+
+{% endblock %}
+
+<style>
+            @media (max-width: 900px) {
+            .center-on-small1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .write-small {
+                margin-top: 10px;
+            }
+        }
+        </style>
+
+<div class="bg-black text-light pt-5 pb-5 fs-3">
+    <div class="container center-on-small1">
+        <div class="d-flex justify-content-between " id="wrap-footer-indicators">
+            <div class="qweasd">
+                <a class=" navbar-brand " href=""><img src="{% static 'main/images/LogoLF.SVG' %}"></a>
+            </div>
+            <div class="d-inline-block flex-row">
+                <p class="write-small" id="wrap-footer-text1">Написать:</p>
+                <a class=" navbar-brand"><img src="{% static 'main/images/email_icon.png' %}"> game@linefire.ru</a>
+                <a href="https://vk.com/linefire75" class=" navbar-brand"><img style="max-width: 30px" src="{% static 'main/images/vk-2.svg' %}"> linefire75</a>
+            </div>
+            <div class="d-inline flex-row">
+                <p class="write-small" id="wrap-footer-text">Позвонить:</p>
+                <a class="navbar-brand "><img src="{% static 'main/images/phone_icon.png' %}"> (3022) 71-74-00</a>
+                </br>
+                <a class="navbar-brand "><img src="{% static 'main/images/phone_icon.png' %}"> +7 914 489-35-48</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        function checkWidth() {
+            var footer = document.getElementById('wrap-footer-indicators');
+            if (window.innerWidth < 900) {
+                footer.classList.remove('d-flex');
+                footer.classList.remove('justify-content-between');
+            } else {
+                footer.classList.add('d-flex');
+                footer.classList.add('justify-content-between');
+            }
+
+
+        }
+
+        window.onload = checkWidth;
+
+        window.onresize = checkWidth;
+    </script>
+
+</body>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>

@@ -10,68 +10,11 @@
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
 
     <title>Главная страница</title>
-
 </head>
 <body>
 
 
-
-
-
-<!--<nav class="navbar bg-red">-->
-<!--  <div class="container-fluid d-flex justify-content-space-between align-middle" style="height: 30px">-->
-<!--      <a class="navbar-brand nav-link text-light fs-4 fw-medium"> <img height="18px" src="{% static 'main/images/lk_icon.png' %}"> личный кабинет</a>-->
-<!--      <a class="navbar-brand nav-link  text-light fs-4 fw-medium"> <img height="18px" src="{% static 'main/images/email_icon.png' %}"> game@linefire.ru</a>-->
-<!--      <a class="navbar-brand nav-link text-light fs-5 fw-medium"> <img height="19px" src="{% static 'main/images/phone_icon.png' %}"> +7 914 489-35-48</a>-->
-<!--  </div>-->
-<!--</nav>-->
-
-
-<!--Навигация-->
-
-<style>
-    .hover-link {
-    color: white;
-         transition: color 0.4s ease;
-}
-.hover-link:hover {
-    color: red;
-}
-
-</style>
-
-<nav class="navbar navbar-expand-lg bg-black ">
-  <div class="container-fluid container" >
-    <a class="navbar-brand"><img class="logo-hw" src="{% static 'main/images/LogoLF.svg' %}"></a>
-    <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Переключатель навигации">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse flex-grow-0 text-nowrap" id="navbarTogglerDemo02">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-<!--         <li class="nav-item sdc">-->
-<!--                <a class="nav-link disabled text-light fs-2 text">СИЛА ДОБЛЕСТЬ ЧЕСТЬ</a>-->
-<!--        </li>-->
-        <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Статистика боёв</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Полигоны</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Сценарии</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Контакты</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
-        </li>
-      </ul>
-    </div>
-</div>
-</nav>
-<!--Конец-Навигация-->
-
+{% include 'main/running-title/navbar.html' %}
 
 
 <!--СЛАЙДЕР-->
@@ -154,53 +97,10 @@
 
 <!--ВИДЕО-->
 <style>
-        .container-monitor {
-            position: relative;
-            width: max-content;
-        }
-        .monitor-img {
-            max-height: 500px;
-            display: block;
-        }
-        .video-frame {
-            position: absolute;
-            top: 5%;
-            left: 4%;
-            width: 92%;
-            height: 76%;
-        }
         .monitor-bg{
             background: url('{% static 'main/images/bg-monitor.jpg' %}');
             background-repeat: no-repeat;
             background-size: cover;
-        }
-
-        @media (max-width: 720px) {
-        .video-frame {
-            position: absolute;
-            top: 4%;
-            left: 5%;
-            width: 90%;
-            height: 77%;
-        }
-        }
-        @media (max-width: 640px) {
-        .video-frame {
-            position: absolute;
-            top: 4%;
-            left: 5.5%;
-            width: 89%;
-            height: 77%;
-        }
-        }
-        @media (max-width: 575px) {
-        .video-frame {
-            position: absolute;
-            top: 3.5%;
-            left: 6%;
-            width: 88%;
-            height: 77%;
-        }
         }
     </style>
 
@@ -221,16 +121,7 @@
 
 
 <!--Военно-тактический клуб «Линия Огня»-->
-        <style>
-            @media (max-width: 991px) {
-            .center-on-small {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
 
-        }
-        </style>
 
         <div class="row g-3 pb-5 pt-5" id="wrap-logo-indicators3">
             <div class="col-sm-3 center-on-small" id="wrap-logo-indicators">
@@ -279,29 +170,7 @@
 
 
 <!--ПОЧЕМУ ИГРА У НАС ЭТО КРУТО?-->
-<style>
-        .icon-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .icon-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .icon-item img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 10px;
-        }
-        .icon-item p {
-            font-size: 14px;
-            color: #000;
-        }
-</style>
+
 
     <div>
         <div class="text-center pb-5">
@@ -333,19 +202,6 @@
                 <p class="fs-5">Тренировки и обучение военному искусству по всем правилам</p>
             </div>
 
-
-<style>
-     @media (max-width: 1199px) {
-            .icon-item1 {
-                display: none;
-            }
-            }
-     /*@media (max-width: 991px) {*/
-     /*       .icon-item1 {*/
-     /*           display: block;*/
-     /*       }*/
-     /*       }*/
-</style>
             <div class="icon-item icon-item1">
                 <img src="{% static 'main/images/card/card-7.png' %}" alt="Иконка 7">
                 <p class="fs-5">Дружеская атмосфера и новые знакомства</p>
@@ -470,58 +326,8 @@
 
 
 
-<style>
-            @media (max-width: 900px) {
-            .center-on-small1 {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .write-small {
-                margin-top: 10px;
-            }
-        }
-        </style>
 
-<div class="bg-black text-light pt-5 pb-5 fs-3">
-    <div class="container center-on-small1">
-        <div class="d-flex justify-content-between " id="wrap-footer-indicators">
-            <div class="qweasd">
-                <a class=" navbar-brand " href=""><img src="{% static 'main/images/LogoLF.SVG' %}"></a>
-            </div>
-            <div class="d-inline-block flex-row">
-                <p class="write-small" id="wrap-footer-text1">Написать:</p>
-                <a class=" navbar-brand"><img src="{% static 'main/images/email_icon.png' %}"> game@linefire.ru</a>
-                <a href="https://vk.com/linefire75" class=" navbar-brand"><img style="max-width: 30px" src="{% static 'main/images/vk-2.svg' %}"> linefire75</a>
-            </div>
-            <div class="d-inline flex-row">
-                <p class="write-small" id="wrap-footer-text">Позвонить:</p>
-                <a class="navbar-brand "><img src="{% static 'main/images/phone_icon.png' %}"> (3022) 71-74-00</a>
-                </br>
-                <a class="navbar-brand "><img src="{% static 'main/images/phone_icon.png' %}"> +7 914 489-35-48</a>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-        function checkWidth() {
-            var footer = document.getElementById('wrap-footer-indicators');
-            if (window.innerWidth < 900) {
-                footer.classList.remove('d-flex');
-                footer.classList.remove('justify-content-between');
-            } else {
-                footer.classList.add('d-flex');
-                footer.classList.add('justify-content-between');
-            }
-
-
-        }
-
-        window.onload = checkWidth;
-
-        window.onresize = checkWidth;
-    </script>
-
+{% include 'main/running-title/footer.html' %}
 
 </body>
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

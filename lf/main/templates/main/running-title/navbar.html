@@ -1,0 +1,44 @@
+{% load static %}
+
+<!--Навигация-->
+<style>
+    .hover-link {
+    color: white;
+         transition: color 0.4s ease;
+}
+.hover-link:hover {
+    color: red;
+}
+
+</style>
+
+<nav class="navbar navbar-expand-lg bg-black ">
+  <div class="container-fluid container" >
+    <a class="navbar-brand"><img class="logo-hw" src="{% static 'main/images/LogoLF.svg' %}"></a>
+    <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Переключатель навигации">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0 text-nowrap" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+<!--         <li class="nav-item sdc">-->
+<!--                <a class="nav-link disabled text-light fs-2 text">СИЛА ДОБЛЕСТЬ ЧЕСТЬ</a>-->
+<!--        </li>-->
+        <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Статистика боёв</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Полигоны</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Сценарии</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Контакты</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link fw-bold fs-3 text hover-link" href=""><img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</nav>

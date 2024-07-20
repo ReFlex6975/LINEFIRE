@@ -1,0 +1,53 @@
+{% load static %}
+
+<style>
+            @media (max-width: 900px) {
+            .center-on-small1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .write-small {
+                margin-top: 10px;
+            }
+        }
+        </style>
+
+<div class="bg-black text-light pt-5 pb-5 fs-3">
+    <div class="container center-on-small1">
+        <div class="d-flex justify-content-between " id="wrap-footer-indicators">
+            <div class="qweasd">
+                <a class=" navbar-brand " href=""><img src="{% static 'main/images/LogoLF.SVG' %}"></a>
+            </div>
+            <div class="d-inline-block flex-row">
+                <p class="write-small" id="wrap-footer-text1">Написать:</p>
+                <a class=" navbar-brand"><img src="{% static 'main/images/email_icon.png' %}"> game@linefire.ru</a>
+                <a href="https://vk.com/linefire75" class=" navbar-brand"><img style="max-width: 30px" src="{% static 'main/images/vk-2.svg' %}"> linefire75</a>
+            </div>
+            <div class="d-inline flex-row">
+                <p class="write-small" id="wrap-footer-text">Позвонить:</p>
+                <a class="navbar-brand "><img src="{% static 'main/images/phone_icon.png' %}"> (3022) 71-74-00</a>
+                </br>
+                <a class="navbar-brand "><img src="{% static 'main/images/phone_icon.png' %}"> +7 914 489-35-48</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        function checkWidth() {
+            var footer = document.getElementById('wrap-footer-indicators');
+            if (window.innerWidth < 900) {
+                footer.classList.remove('d-flex');
+                footer.classList.remove('justify-content-between');
+            } else {
+                footer.classList.add('d-flex');
+                footer.classList.add('justify-content-between');
+            }
+
+
+        }
+
+        window.onload = checkWidth;
+
+        window.onresize = checkWidth;
+    </script>

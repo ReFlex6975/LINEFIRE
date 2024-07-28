@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'captcha', # django-simple-captcha
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +139,8 @@ EMAIL_HOST_PASSWORD = 'TkwhhkXKitqctCSDbYmR'
 DEFAULT_FROM_EMAIL = 'reflex002@bk.ru'
 TELEGRAM_BOT_TOKEN = '7485421148:AAFYD9wB67JYbmp7agT8NuAKKgOjWDpdz7U'
 TELEGRAM_CHAT_ID = '968478403'
+
+# Настройки для django-simple-captcha
+CAPTCHA_FONT_SIZE = 60
+CAPTCHA_LENGTH = 1
+

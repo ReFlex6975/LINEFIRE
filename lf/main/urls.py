@@ -7,5 +7,4 @@ urlpatterns = [
     path('polygons', views.polygons, name='polygons'),
     path('scenarios', views.scenarios, name='scenarios'),
     path('cabinet', views.cabinet, name='cabinet'),
-    path('contact/', views.contact_form, name='contact'),  # Путь для обработки формы
 ]

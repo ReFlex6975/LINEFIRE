@@ -5,7 +5,6 @@
 {% include 'main/running-title/top.html' %}
 {% include 'main/running-title/navbar.html' %}
 
-{% include 'main/base.html' %}
 <!--СЛАЙДЕР-->
 <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -50,8 +49,39 @@
 
 
 
+<style>
+#openModal {
+  position: fixed;
+  top: 200px; /* Расстояние от верхней части экрана */
+  right: 20px; /* Расстояние от правой части экрана */
+  padding: 10px 20px; /* Внутренние отступы */
+  font-size: 28px; /* Размер шрифта */
+  color: #fff; /* Цвет текста */
+  background-color: red; /* Цвет фона */
+  border: none; /* Без границы */
+  border-radius: 5px; /* Скругленные углы */
+  cursor: pointer; /* Курсор при наведении */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+  transition: background-color 0.3s; /* Плавный переход цвета фона */
+    z-index: 10;
+}
 
+#openModal:hover {
+  background-color: #0056b3; /* Цвет фона при наведении */
+}
 
+/* Медиа-запрос для адаптации на мобильных устройствах */
+@media (max-width: 600px) {
+  #openModal {
+    top: 200px; /* Уменьшенное расстояние сверху */
+    right: 10px; /* Уменьшенное расстояние справа */
+    padding: 8px 16px; /* Уменьшенные внутренние отступы */
+    font-size: 14px; /* Уменьшенный размер шрифта */
+  }
+}
+</style>
+ <button id="openModal">Запись</button>
+{% include 'main/contact_form.html' %}
 
 
 

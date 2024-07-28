@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha', # django-simple-captcha
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.contact_form',
             ],
         },
     },
@@ -126,3 +128,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS= [
     BASE_DIR / "static",
 ]
+
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'reflex002@bk.ru'
+EMAIL_HOST_PASSWORD = 'TkwhhkXKitqctCSDbYmR'
+DEFAULT_FROM_EMAIL = 'reflex002@bk.ru'
+TELEGRAM_BOT_TOKEN = '7485421148:AAFYD9wB67JYbmp7agT8NuAKKgOjWDpdz7U'
+TELEGRAM_CHAT_ID = '968478403'

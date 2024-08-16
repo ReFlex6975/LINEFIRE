@@ -1,0 +1,40 @@
+{% load static %}
+
+{% include 'main/running-title/top.html' %}
+{% include 'main/running-title/navbar.html' %}
+
+
+
+<style>
+    .form-control-1{
+        width: 300px;
+        height: 50px;
+    }
+</style>
+
+<div class="container">
+
+ <form class="d-flex" method="post">
+     {% csrf_token %}
+
+ <input class="form-control-1" name="username" id="userName" type="text" placeholder="Введите ваш позывной">
+
+ <input name="password" type="password" id="pwd" placeholder="Пароль">
+
+
+
+ <button>Вход</button>
+{{ form.errors }}
+ </form>
+
+
+
+</div>
+
+
+
+
+
+
+{% include 'main/running-title/footer.html' %}
+{% include 'main/running-title/bottom.html' %}

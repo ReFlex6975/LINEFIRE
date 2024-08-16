@@ -1,0 +1,39 @@
+{% load static %}
+
+{% include 'main/running-title/top.html' %}
+{% include 'main/running-title/navbar.html' %}
+
+
+
+<style>
+    .form-control-1{
+        width: 300px;
+        height: 50px;
+    }
+</style>
+
+<div class="container">
+    <form class="d-flex" method="post">
+     {% csrf_token %}
+
+        <input name="username" class="form-control-1" id="userName" type="text" placeholder="Позывной">
+        <input name="password1" type="password" id="pwd" placeholder="Пароль">
+        <input name="password2" type="password" id="pwd2" placeholder="Подтверждение пароля">
+        <input name="fio" type="text" placeholder="ФИО">
+        <input name="dob" type="date" placeholder="Дата рождения">
+<!--123321-->
+<!--sfg44gf534gdfs4-->
+
+ <button>Регистрация</button>
+{{ form.errors }}
+ </form>
+<a href="{% url 'login' %}">Есть аккаунт?</a>
+</div>
+
+
+
+
+
+
+{% include 'main/running-title/footer.html' %}
+{% include 'main/running-title/bottom.html' %}

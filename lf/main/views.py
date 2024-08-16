@@ -1,10 +1,20 @@
+from django.contrib.auth.views import LoginView
+
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
-from .forms import ContactForm
+from django.urls import reverse_lazy
+from django.views.generic import FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
+
+from .forms import ContactForm, RegisterForm, PolygonForm
 import telegram
-# reflex002@bk.ru
+
+from .models import Buyer, Polygon
+
+
 def mainpage(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -29,17 +39,71 @@ def mainpage(request):
     return render(request, 'main/mainpage.html', {'form': form})
 
 
-# def mainpage(request):
-#     return render(request,'main/mainpage.html', {'title': 'Главная'})
-
 def statistics(request):
-    return render(request,'main/statistics.html', {'title': 'Статистика боёв'})
+    return render(request, 'main/statistics.html', {'title': 'Статистика боёв'})
+
+
 def polygons(request):
-    return render(request,'main/polygons.html', {'title': 'Полигоны'})
+    polygons_list = Polygon.objects.all()
+    return render(request, 'main/polygon.html', {'polygons': polygons_list})
+
+
 def scenarios(request):
-    return render(request,'main/scenarios.html', {'title': 'Сценарии'})
+    return render(request, 'main/scenarios.html', {'title': 'Сценарии'})
+
+
 def cabinet(request):
-    return render(request,'main/cabinet.html', {'title': 'Личный кабинет'})
+    return render(request, 'main/cabinet.html', {'title': 'Личный кабинет'})
 
 
+@login_required
+def profile_view(request):
+    buyer = Buyer.objects.get(username=request.user.username)  # Получение текущего пользователя из модели Buyer
+
+    return render(request, 'main/profile.html', {'buyer': buyer})
+
+
+class RegisterView(CreateView):
+    model = Buyer
+    form_class = RegisterForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy("main:profile")
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+# class LoginView(LoginView):
+#     template_name = 'main/registration/login.html'
+
+
+class PolygonListView(ListView):
+    model = Polygon
+    template_name = 'main/polygon.html'
+
+class PolygonDetailView(DetailView):
+    model = Polygon
+    template_name = 'polygon_detail.html'
+
+@method_decorator(login_required, name='dispatch')
+class PolygonCreateView(CreateView):
+    model = Polygon
+    fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
+    template_name = 'main/polygon_form.html'
+    success_url = reverse_lazy('main:polygons')
+
+
+@method_decorator(login_required, name='dispatch')
+class PolygonUpdateView(UpdateView):
+    model = Polygon
+    fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
+    template_name = 'main/polygon_edit.html'
+    success_url = reverse_lazy('main:polygons')
+
+@method_decorator(login_required, name='dispatch')
+class PolygonDeleteView(DeleteView):
+    model = Polygon
+    template_name = 'main/polygon_confirm_delete.html'
+    success_url = reverse_lazy('main:polygons')
 

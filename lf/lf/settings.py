@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'lf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,6 +95,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -125,9 +130,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS= [
-    BASE_DIR / "static",
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 
 # Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -142,5 +146,16 @@ TELEGRAM_CHAT_ID = '968478403'
 
 # Настройки для django-simple-captcha
 CAPTCHA_FONT_SIZE = 60
-CAPTCHA_LENGTH = 1
+CAPTCHA_LENGTH = 4
 
+CSRF_TRUSTED_ORIGINS = ['https://d379-188-75-213-6.ngrok-free.app']
+
+LOGIN_REDIRECT_URL = reverse_lazy("main:profile")
+LOGOUT_REDIRECT_URL = 'login'
+
+AUTH_USER_MODEL = 'main.Buyer'
+
+# URL для медиа-файлов
+MEDIA_URL = '/media/'
+# Путь к директории, где будут храниться медиа-файлы
+MEDIA_ROOT = os.path.join(BASE_DIR, 'polygons')

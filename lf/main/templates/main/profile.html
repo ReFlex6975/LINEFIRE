@@ -1,0 +1,76 @@
+{% load static %}
+
+{% include 'main/running-title/top.html' %}
+{% include 'main/running-title/navbar.html' %}
+
+
+<div class="container">
+    <div>
+    <h1>Добро пожаловать, (звание) {{ buyer.username }}!</h1>
+
+        <div class="d-flex d-flex justify-content-between">
+
+
+        <div class="d-flex">
+            <img src="{% static 'main/images/solder_svg.svg' %}" height="311" width="161"/>
+            <div>
+                <p class="fs-5 fw-bold">Позывной: {{ buyer.username }}</p>
+                <p class="fs-5 fw-bold">ФИО: {{ buyer.fio }}</p>
+                <p class="fs-5 fw-bold">Дата рождения: {{ buyer.dob }}</p>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="fs-5 fw-bold text-light">
+
+            <style>
+                .plashka {
+                    background: url('{% static 'main/images/plashka_lk.png' %}');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+                .text-red{
+                    color: red;
+                }
+                .fs-126{
+                    font-size: 126px;
+                }
+                .m--1{
+                    margin-top: -50px;
+                    margin-bottom: -50px;
+                }
+            </style>
+
+
+            <div class="plashka">
+                <div class="d-flex justify-content-around">
+                    <div class="text-red m-4">
+                        <p class="fs-4">Позиция в общем рейтинге</p>
+                        <p class="fs-126 m--1">13</p>
+                    </div>
+                    <div class="m-4">
+                        <p class="fs-4">Количество очков</p>
+                        <p class="fs-126 m--1">4422</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center p-3 fs-4">
+                    <p>До нового звания Прапорщик необходимо 610 очков</p>
+                </div>
+            </div>
+</div>
+
+
+</div>
+    </div>
+    <img src="https://cdn.discordapp.com/attachments/586922467138732054/1267606630204182609/1_1.gif?ex=66a9662b&is=66a814ab&hm=a19c644180d1fbcbc6e39ab0aa12b59dd877c438e7657a7b6cedf45b0e9ff265&">
+
+</div>
+
+
+
+{% include 'main/running-title/footer.html' %}
+{% include 'main/running-title/bottom.html' %}

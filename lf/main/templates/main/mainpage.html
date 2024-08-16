@@ -47,7 +47,11 @@
 <!--КОНЕЦ-СЛАЙДЕР-->
 
 
-
+<!--{% if user.is_authenticated %}-->
+<!--            <div class="text-center mb-3">-->
+<!--                <p>привет</p>-->
+<!--            </div>-->
+<!--        {% endif %}-->
 
 <style>
 #openModal {
@@ -67,7 +71,8 @@
 }
 
 #openModal:hover {
-  background-color: #0056b3; /* Цвет фона при наведении */
+  background-color: white; /* Цвет фона при наведении */
+    color: red;
 }
 
 /* Медиа-запрос для адаптации на мобильных устройствах */

@@ -1,0 +1,26 @@
+
+{% load static %}
+
+{% include 'main/running-title/top.html' %}
+{% include 'main/running-title/navbar.html' %}
+
+
+
+
+
+
+{% block content %}
+<div class="justify-content-center">
+  <div class="container">
+    <h1 class="my-4">{{ view.title }}</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% include 'main/running-title/footer.html' %}
+{% include 'main/running-title/bottom.html' %}

@@ -1,0 +1,86 @@
+{% load static %}
+
+
+
+<div class="container">
+    <div class="mt-5">
+        <p class="fw-bold fs-2 text-center" style="color:#fc0e0e">ПОЛИГОНЫ ДЛЯ ЛАЗЕРТАГА В ЧИТЕ</p>
+        <p class="fs-5">Для игры в лазертаг вовсе необязательно использовать закрытые помещения в качестве игровой площадки. Гораздо интереснее и увлекательнее провести сражение на одном из открытых полигонов клуба "Линия Огня". Обстановка приближенная к реальным боевым условиям обеспечит максимальное погружение в игру, а специальная форма для лазертага позволит буквально слиться с окружающей Вас обстановкой.</p>
+        <p class="fs-5">Наш клуб готов предложить множество интересных полигонов для проведения игры: на ваш выбор это может быть лазертаг в лесу, на развалинах, в карьере, на улице и в помещениях. Сражения плечом к плечу с друзьями под открытым небом оставят намного более яркие впечатления, чем лазерные бои на закрытых аренах.</p>
+        <p class="fs-5">Также наш военно-тактический клуб может организовать сражение на выезде в любом удобном для Вас месте и предоставить все необходимое оборудования для лазертага. Каждую следующую вашу баталию можно проводить на новой локации - это позволит оценить все разнообразие этой замечательной игры!</p>
+
+        {% if user.is_authenticated and user.is_superuser %}
+        <!-- Ссылка на добавление нового полигона -->
+        <div class="text-center mb-4">
+            <a href="{% url 'main:polygon-add' %}" class="btn btn-success">Добавить полигон</a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="row pb-5">
+        {% for polygon in object_list %}
+            <div class="col-sm-6">
+                <div id="{{ polygon.title|slugify }}" class="custom-container-polygons">
+                    <div id="carousel{{ forloop.counter }}" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carousel{{ forloop.counter }}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            {% if polygon.image2 %}<button type="button" data-bs-target="#carousel{{ forloop.counter }}" data-bs-slide-to="1" aria-label="Slide 2"></button>{% endif %}
+                            {% if polygon.image3 %}<button type="button" data-bs-target="#carousel{{ forloop.counter }}" data-bs-slide-to="2" aria-label="Slide 3"></button>{% endif %}
+                            {% if polygon.image4 %}<button type="button" data-bs-target="#carousel{{ forloop.counter }}" data-bs-slide-to="3" aria-label="Slide 4"></button>{% endif %}
+                        </div>
+                       <div class="carousel-inner">
+    <p class="fw-bold fs-2 text-center">{{ polygon.title }}</p>
+    {% if polygon.image1 %}
+    <div class="carousel-item active">
+        <img src="{{ polygon.image1.url }}" class="d-block w-100" alt="{{ polygon.title }}">
+    </div>
+    {% endif %}
+    {% if polygon.image2 %}
+    <div class="carousel-item">
+        <img src="{{ polygon.image2.url }}" class="d-block w-100" alt="{{ polygon.title }}">
+    </div>
+    {% endif %}
+    {% if polygon.image3 %}
+    <div class="carousel-item">
+        <img src="{{ polygon.image3.url }}" class="d-block w-100" alt="{{ polygon.title }}">
+    </div>
+    {% endif %}
+    {% if polygon.image4 %}
+    <div class="carousel-item">
+        <img src="{{ polygon.image4.url }}" class="d-block w-100" alt="{{ polygon.title }}">
+    </div>
+    {% endif %}
+</div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ forloop.counter }}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Предыдущий</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ forloop.counter }}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Следующий</span>
+                        </button>
+                    </div>
+
+                    {% if user.is_authenticated and user.is_superuser %}
+                    <!-- Ссылки на редактирование и удаление -->
+                    <div class="text-center mt-2">
+                        <a href="{% url 'main:polygon-edit' pk=polygon.pk %}" class="btn btn-primary">Редактировать</a>
+                        <a href="{% url 'main:polygon-delete' polygon.pk %}" class="btn btn-danger">Удалить</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .custom-container-polygons {
+        margin-left: 15%;
+        margin-right: 15%;
+        margin-bottom: 5px;
+        max-width: 600px;
+    }
+</style>
+

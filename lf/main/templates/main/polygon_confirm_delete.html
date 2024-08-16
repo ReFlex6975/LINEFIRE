@@ -1,0 +1,20 @@
+{% load static %}
+
+{% include 'main/running-title/top.html' %}
+{% include 'main/running-title/navbar.html' %}
+
+
+
+
+
+<div class="container">
+<form method="post">
+    {% csrf_token %}
+    <p>Вы уверены, что хотите удалить полигон "{{ object.title }}"?</p>
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a href="{% url 'main:polygons' %}" class="btn btn-secondary">Отмена</a>
+</form>
+</div>
+
+{% include 'main/running-title/footer.html' %}
+{% include 'main/running-title/bottom.html' %}

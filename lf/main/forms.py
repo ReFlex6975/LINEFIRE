@@ -26,3 +26,14 @@ class PolygonForm(forms.ModelForm):
     class Meta:
         model = Polygon
         fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
+
+# ______________________________________________________________________________________
+
+
+from django import forms
+from .models import Scenario
+
+class ScenarioForm(forms.ModelForm):
+    class Meta:
+        model = Scenario
+        fields = ['title', 'description', 'video_url']

@@ -1,0 +1,36 @@
+{% load static %}
+
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
+
+<div class="container">
+    <div class="text-center mt-5">
+        <p class=" fw-bold fs-2 " style="color:#fc0e0e">СЦЕНАРИИ ИГР В ЛАЗЕРТАГ</p>
+        <p class="fs-5">Военно-тактический клуб «Линия Огня» в Чите предлагает вам множество увлекательных сценариев для лазертага:</p>
+    </div>
+    {% if user.is_authenticated and user.is_superuser %}
+    <div class="text-center">
+        <a href="{% url 'main:scenario-create' %}" class="btn btn-success mb-3">Добавить сценарий</a>
+    </div>
+    {% endif %}
+    <div class="row">
+        {% for scenario in object_list %}
+        <div class="col-sm-6">
+            <div class="ratio ratio-16x9">
+                <iframe src="{{ scenario.video_url }}" title="{{ scenario.title }}" allowfullscreen></iframe>
+            </div>
+            <div class="pt-3 fs-5">
+                <p>{{ scenario.description }}</p>
+            </div>
+            {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'main:scenario-edit' scenario.pk %}" class="btn btn-primary">Редактировать</a>
+            <a href="{% url 'main:scenario-delete' scenario.pk %}" class="btn btn-danger">Удалить</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}
+

@@ -1,0 +1,29 @@
+{% load static %}
+
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
+<div class="container mt-5">
+    <h2>Добавить новый сценарий</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="Чтобы получить правильный URL, скопируйте ссылку из адресной строки браузера и замените 'watch?v=' на 'embed/'. Пример: Обычный URL: 'https://www.youtube.com/watch?v=XXXXXXXXXXX' Формат для встраивания: 'https://www.youtube.com/embed/XXXXXXXXXXX'">Помощ с url</i>
+    </form>
+</div>
+
+<script>
+    // Инициализация всех tooltips
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltips.forEach(function (tooltip) {
+            new bootstrap.Tooltip(tooltip);
+        });
+    });
+</script>
+</body>
+</html>
+
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}
+

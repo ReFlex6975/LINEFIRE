@@ -1,9 +1,7 @@
 {% load static %}
 
-{% include 'main/running-title/top.html' %}
-{% include 'main/running-title/navbar.html' %}
-
-
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
 
 <style>
     .form-control-1{
@@ -21,20 +19,11 @@
 
  <input name="password" type="password" id="pwd" placeholder="Пароль">
 
-
-
  <button>Вход</button>
 {{ form.errors }}
  </form>
 
-
-
 </div>
 
-
-
-
-
-
-{% include 'main/running-title/footer.html' %}
-{% include 'main/running-title/bottom.html' %}
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}

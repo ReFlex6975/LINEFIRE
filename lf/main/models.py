@@ -33,6 +33,8 @@ class Buyer(AbstractUser):
     )
 
 
+# ----------------------------------------------------------------------------------
+
 class Polygon(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -47,14 +49,14 @@ class Polygon(models.Model):
     def get_absolute_url(self):
         return reverse('polygon-list', kwargs={'pk': self.pk})
 
-    # @receiver(post_migrate)
-    # def create_groups(sender, **kwargs):
-    #     if sender.name == 'main':  # Укажите имя вашего приложения
-    #         # Создание групп
-    #         user_group, created = Group.objects.get_or_create(name='User')
-    #         manager_group, created = Group.objects.get_or_create(name='Manager')
-    #         admin_group, created = Group.objects.get_or_create(name='Administrator')
-    #
-    #         # Пример создания разрешений
-    #         # Обратите внимание: Вам нужно создать соответствующие разрешения
-    #         # Если разрешения ещё не созданы, вы можете их создать и назначить здесь
+
+# ----------------------------------------------------------------------------------
+
+class Scenario(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    video_url = models.URLField()
+    image = models.ImageField(upload_to='scenarios/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title

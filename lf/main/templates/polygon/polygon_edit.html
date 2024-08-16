@@ -1,8 +1,7 @@
-
 {% load static %}
 
-{% include 'main/running-title/top.html' %}
-{% include 'main/running-title/navbar.html' %}
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
 
 
 
@@ -10,9 +9,9 @@
 
 
 {% block content %}
-<div class="justify-content-center">
+<div class="container">
   <div class="container">
-    <h1 class="my-4">{{ view.title }}</h1>
+    <h1 class="my-4">Редактировать полигон</h1>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
@@ -22,5 +21,7 @@
 </div>
 {% endblock %}
 
-{% include 'main/running-title/footer.html' %}
-{% include 'main/running-title/bottom.html' %}
+
+
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}

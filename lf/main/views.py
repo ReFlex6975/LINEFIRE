@@ -9,10 +9,10 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
 
-from .forms import ContactForm, RegisterForm, PolygonForm
+from .forms import ContactForm, RegisterForm, PolygonForm, ScenarioForm
 import telegram
 
-from .models import Buyer, Polygon
+from .models import Buyer, Polygon, Scenario
 
 
 def mainpage(request):
@@ -80,17 +80,19 @@ class RegisterView(CreateView):
 
 class PolygonListView(ListView):
     model = Polygon
-    template_name = 'main/polygon.html'
+    template_name = 'polygon/polygon.html'
+
 
 class PolygonDetailView(DetailView):
     model = Polygon
     template_name = 'polygon_detail.html'
 
+
 @method_decorator(login_required, name='dispatch')
 class PolygonCreateView(CreateView):
     model = Polygon
     fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
-    template_name = 'main/polygon_form.html'
+    template_name = 'polygon/polygon_form.html'
     success_url = reverse_lazy('main:polygons')
 
 
@@ -98,12 +100,40 @@ class PolygonCreateView(CreateView):
 class PolygonUpdateView(UpdateView):
     model = Polygon
     fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
-    template_name = 'main/polygon_edit.html'
+    template_name = 'polygon/polygon_edit.html'
     success_url = reverse_lazy('main:polygons')
+
 
 @method_decorator(login_required, name='dispatch')
 class PolygonDeleteView(DeleteView):
     model = Polygon
-    template_name = 'main/polygon_confirm_delete.html'
+    template_name = 'polygon/polygon_confirm_delete.html'
     success_url = reverse_lazy('main:polygons')
 
+
+# -----------------------------------------------------------------------------------
+
+class ScenarioListView(ListView):
+    model = Scenario
+    template_name = 'scenarios/scenario_list.html'  # Путь к шаблону
+    context_object_name = 'scenarios'  # Имя переменной для доступа к данным в шаблоне
+
+
+class ScenarioCreateView(CreateView):
+    model = Scenario
+    form_class = ScenarioForm
+    template_name = 'scenarios/scenario_form.html'
+    success_url = reverse_lazy('main:scenario-list')
+
+
+class ScenarioUpdateView(UpdateView):
+    model = Scenario
+    form_class = ScenarioForm
+    template_name = 'scenarios/scenario_form.html'
+    success_url = reverse_lazy('main:scenario-list')
+
+
+class ScenarioDeleteView(DeleteView):
+    model = Scenario
+    template_name = 'scenarios/scenario_confirm_delete.html'
+    success_url = reverse_lazy('main:scenario-list')

@@ -1,18 +1,22 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
 
-from .forms import ContactForm, RegisterForm, PolygonForm, ScenarioForm
+from .decorators import manager_required
+from .forms import ContactForm, PolygonForm, ScenarioForm, ManagerRegistrationForm, PlayerRegistrationForm, SectionForm
 import telegram
-
-from .models import Buyer, Polygon, Scenario
+from .models import Polygon, Scenario, CustomUser, Section
 
 
 def mainpage(request):
@@ -32,11 +36,19 @@ def mainpage(request):
                 fail_silently=False,
             )
 
-            return redirect('mainpage')
+            return redirect('main:mainpage')
     else:
         form = ContactForm()
 
-    return render(request, 'main/mainpage.html', {'form': form})
+    # Определяем права пользователя
+    is_admin = request.user.is_superuser
+    is_manager = request.user.groups.filter(name='Менеджеры').exists() if request.user.is_authenticated else False
+
+    return render(request, 'main/mainpage.html', {
+        'form': form,
+        'is_admin': is_admin,
+        'is_manager': is_manager,
+    })
 
 
 def statistics(request):
@@ -58,24 +70,23 @@ def cabinet(request):
 
 @login_required
 def profile_view(request):
-    buyer = Buyer.objects.get(username=request.user.username)  # Получение текущего пользователя из модели Buyer
+    # Получаем текущего пользователя
+    user = request.user
 
-    return render(request, 'main/profile.html', {'buyer': buyer})
+    # Проверяем тип пользователя
+    if user.is_manager():
+        user_type = 'manager'
+    elif user.is_player():
+        user_type = 'player'
+    else:
+        user_type = 'unknown'
 
+    context = {
+        'user': user,
+        'user_type': user_type,
+    }
 
-class RegisterView(CreateView):
-    model = Buyer
-    form_class = RegisterForm
-    template_name = 'registration/register.html'
-    success_url = reverse_lazy("main:profile")
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
-
-
-# class LoginView(LoginView):
-#     template_name = 'main/registration/login.html'
+    return redirect('main:player_profile', pk=user.pk)
 
 
 class PolygonListView(ListView):
@@ -83,12 +94,13 @@ class PolygonListView(ListView):
     template_name = 'polygon/polygon.html'
 
 
+@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
 class PolygonDetailView(DetailView):
     model = Polygon
     template_name = 'polygon_detail.html'
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
 class PolygonCreateView(CreateView):
     model = Polygon
     fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
@@ -96,7 +108,7 @@ class PolygonCreateView(CreateView):
     success_url = reverse_lazy('main:polygons')
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
 class PolygonUpdateView(UpdateView):
     model = Polygon
     fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
@@ -104,7 +116,7 @@ class PolygonUpdateView(UpdateView):
     success_url = reverse_lazy('main:polygons')
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
 class PolygonDeleteView(DeleteView):
     model = Polygon
     template_name = 'polygon/polygon_confirm_delete.html'
@@ -112,13 +124,13 @@ class PolygonDeleteView(DeleteView):
 
 
 # -----------------------------------------------------------------------------------
-
 class ScenarioListView(ListView):
     model = Scenario
-    template_name = 'scenarios/scenario_list.html'  # Путь к шаблону
+    template_name = 'scenarios/scenario_list.html'
     context_object_name = 'scenarios'  # Имя переменной для доступа к данным в шаблоне
 
 
+@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
 class ScenarioCreateView(CreateView):
     model = Scenario
     form_class = ScenarioForm
@@ -126,6 +138,7 @@ class ScenarioCreateView(CreateView):
     success_url = reverse_lazy('main:scenario-list')
 
 
+@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
 class ScenarioUpdateView(UpdateView):
     model = Scenario
     form_class = ScenarioForm
@@ -133,7 +146,128 @@ class ScenarioUpdateView(UpdateView):
     success_url = reverse_lazy('main:scenario-list')
 
 
+@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
 class ScenarioDeleteView(DeleteView):
     model = Scenario
     template_name = 'scenarios/scenario_confirm_delete.html'
     success_url = reverse_lazy('main:scenario-list')
+
+
+# -----------------------------------------------------------------------------------
+
+User = get_user_model()
+
+
+@login_required
+def register_manager(request):
+    if request.method == 'POST':
+        form = ManagerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = ManagerRegistrationForm()
+    return render(request, 'registration/register_manager.html', {'form': form})
+
+
+@login_required
+@user_passes_test(manager_required)
+def register_player(request):
+    if request.method == 'POST':
+        form = PlayerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main:player_list')
+    else:
+        form = PlayerRegistrationForm()
+    return render(request, 'registration/register_player.html', {'form': form})
+
+
+@login_required
+@user_passes_test(manager_required)
+def player_list(request):
+    sort_by = request.GET.get('sort_by', 'username')
+    search_query = request.GET.get('search', '').strip()
+
+    if sort_by not in ['username', 'email', 'first_name', 'last_name']:
+        sort_by = 'username'
+
+    # Разделение поискового запроса на слова (чтобы поддерживать поиск по имени и фамилии)
+    search_terms = search_query.split()
+
+    # Создание Q объекта для объединения условий поиска
+    query = Q(user_type='player')
+
+    if len(search_terms) == 1:
+        # Если только один термин, то ищем по всем полям
+        query &= (Q(username__icontains=search_terms[0]) |
+                  Q(email__icontains=search_terms[0]) |
+                  Q(first_name__icontains=search_terms[0]) |
+                  Q(last_name__icontains=search_terms[0]))
+    elif len(search_terms) > 1:
+        # Если два и более терминов, то пробуем искать как комбинацию имени и фамилии
+        query &= (Q(first_name__icontains=search_terms[0], last_name__icontains=search_terms[1]) |
+                  Q(last_name__icontains=search_terms[0], first_name__icontains=search_terms[1]))
+
+    players = CustomUser.objects.filter(query).order_by(sort_by)
+
+    return render(request, 'player_list.html', {
+        'players': players,
+        'sort_by': sort_by,
+        'search_query': search_query,
+    })
+
+
+# -----------------------------------------------------------------------------------
+
+def section_list(request):
+    sections = Section.objects.all()
+    return render(request, 'section/section_list.html', {'sections': sections})
+
+
+@login_required
+@user_passes_test(manager_required)
+def add_section(request):
+    if request.method == 'POST':
+        form = SectionForm(request.POST)
+        if form.is_valid():
+            section = form.save(commit=False)
+            section.user = request.user
+            section.save()
+            return redirect('main:section_list')
+    else:
+        form = SectionForm()
+    return render(request, 'section/add_section.html', {'form': form})
+
+
+@login_required
+@user_passes_test(manager_required)
+def edit_section(request, pk):
+    section = get_object_or_404(Section, pk=pk)
+    if request.method == 'POST':
+        form = SectionForm(request.POST, instance=section)
+        if form.is_valid():
+            form.save()
+            return redirect('main:section_list')
+    else:
+        form = SectionForm(instance=section)
+    return render(request, 'section/edit_section.html', {'form': form})
+
+
+@login_required
+@user_passes_test(manager_required)
+def delete_section(request, pk):
+    section = get_object_or_404(Section, pk=pk)
+    if request.method == 'POST':
+        section.delete()
+        return redirect('main:section_list')
+    return render(request, 'section/delete_section.html', {'section': section})
+
+
+# -----------------------------------------------------------------------------------
+
+
+@login_required
+def player_profile(request, pk):
+    player = get_object_or_404(CustomUser, pk=pk)
+    return render(request, 'player_profile.html', {'player': player})

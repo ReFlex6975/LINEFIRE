@@ -2,13 +2,13 @@
 
 {% include 'layout/top.html' %}
 {% include 'layout/navbar.html' %}
-<div class="container mt-5">
+<div class="container mt-5 text-center">
     <h2>Добавить новый сценарий</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Сохранить</button>
-        <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="Чтобы получить правильный URL, скопируйте ссылку из адресной строки браузера и замените 'watch?v=' на 'embed/'. Пример: Обычный URL: 'https://www.youtube.com/watch?v=XXXXXXXXXXX' Формат для встраивания: 'https://www.youtube.com/embed/XXXXXXXXXXX'">Помощ с url</i>
+        <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="Чтобы получить правильный URL, скопируйте ссылку из адресной строки браузера и замените 'watch?v=' на 'embed/'. Пример: Обычный URL: 'https://www.youtube.com/watch?v=XXXXXXXXXXX' Формат для встраивания: 'https://www.youtube.com/embed/XXXXXXXXXXX'">Помощь с url</i>
     </form>
 </div>
 

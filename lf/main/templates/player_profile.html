@@ -5,20 +5,22 @@
 
 
 <div class="container">
-     {% if request.user.is_authenticated and request.user.user_type == 'player' %}
+    {% if request.user.is_authenticated and request.user.user_type == 'player' or request.user.user_type == 'manager' %}
     <div>
-        <h1>Добро пожаловать, (звание) {{ user.username }}!</h1>
-        <div class="d-flex d-flex justify-content-between">
+        <h1>Добро пожаловать, (звание) {{ player.username }}!</h1>
+        <div class="d-flex justify-content-between">
             <div class="d-flex">
                 <img src="{% static 'main/images/solder_svg.svg' %}" height="311" width="161"/>
                 <div>
-                    <p class="fs-5 fw-bold">Позывной: {{ user.username }}</p>
-                    <p class="fs-5 fw-bold">ФИО: {{ user.first_name }} {{ user.last_name }}</p>
-                    <p class="fs-5 fw-bold">Дата рождения: {{ user.dob }}  {{ user.user_type }}</p>
+                    <p class="fs-5 fw-bold">Позывной: {{ player.username }}</p>
+                    <p class="fs-5 fw-bold">ФИО: {{ player.first_name }} {{ player.last_name }}</p>
+                    <p class="fs-5 fw-bold">Дата рождения: {{ player.dob }} {{ player.user_type }}</p>
+                    {% if request.user == player %}
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
                         <button type="submit">Выйти</button>
                     </form>
+                    {% endif %}
                 </div>
             </div>
             <div class="fs-5 fw-bold text-light">
@@ -40,26 +42,16 @@
             </div>
         </div>
     </div>
-        <img src="https://cdn.discordapp.com/attachments/586922467138732054/1267606630204182609/1_1.gif?ex=66a9662b&is=66a814ab&hm=a19c644180d1fbcbc6e39ab0aa12b59dd877c438e7657a7b6cedf45b0e9ff265&">
+
+    {% if request.user.user_type == 'manager' %}
+        <div style="padding-top: 20px">
+            <a href="{% url 'main:player_list' %}" class="btn btn-primary">Список игроков</a>
+            <a href="{% url 'main:register_manager' %}" class="btn btn-primary">Регистрация менеджера</a>
+            <a href="{% url 'main:register_player' %}" class="btn btn-primary">Регистрация игрока</a>
+        </div>
     {% endif %}
-
-
-    {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
-    <div style="padding-top: 20px">
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="logout-button">Выйти</button>
-        </form>
-
-        <p class="fs-5 fw-bold">{{ user.username }}</p>
-        <p class="fs-5 fw-bold"> {{ user.get_full_name }}</p>
-
-        <a href="{% url 'main:player_list' %}" class="btn btn-primary">Список игроков</a>
-        <a href="{% url 'main:register_manager' %}" class="btn btn-primary">Регистрация менеджера</a>
-        <a href="{% url 'main:register_player' %}" class="btn btn-primary">Регистрация игрока</a>
-
-
-    </div>
+    {% endif %}
+</div>
 
     <style>
         .logout-button {
@@ -78,13 +70,12 @@
         }
     </style>
 
-    {% endif %}
 
 
 
 
 
-</div>
+
 
 
 

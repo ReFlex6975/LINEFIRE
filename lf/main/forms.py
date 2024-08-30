@@ -1,7 +1,9 @@
 from django import forms
 from captcha.fields import CaptchaField
 from django.contrib.auth.forms import UserCreationForm
-from .models import Buyer, Polygon
+from django.contrib.auth.models import User, Group
+from .models import Polygon, Scenario, CustomUser, Section
+from django.contrib.auth.hashers import make_password
 
 
 class ContactForm(forms.Form):
@@ -11,29 +13,52 @@ class ContactForm(forms.Form):
     captcha = CaptchaField()
 
 
-class RegisterForm(UserCreationForm):
-    fio = forms.CharField(max_length=100, required=True)
-    dob = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        required=True
-    )
-
-    class Meta(UserCreationForm):
-        model = Buyer
-        fields = ['username', 'password1', 'password2', 'fio', 'dob']
-
 class PolygonForm(forms.ModelForm):
     class Meta:
         model = Polygon
         fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
 
+
 # ______________________________________________________________________________________
 
-
-from django import forms
-from .models import Scenario
 
 class ScenarioForm(forms.ModelForm):
     class Meta:
         model = Scenario
         fields = ['title', 'description', 'video_url']
+
+
+# ______________________________________________________________________________________
+
+class ManagerRegistrationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.user_type = 'manager'
+        if commit:
+            user.save()
+        return user
+
+
+class PlayerRegistrationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.user_type = 'player'
+        if commit:
+            user.save()
+        return user
+
+# ______________________________________________________________________________________
+
+
+class SectionForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        fields = ['title', 'content']

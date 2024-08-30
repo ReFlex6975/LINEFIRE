@@ -32,10 +32,51 @@
           <li class="nav-item">
           <a class="nav-link fw-bold fs-3 text hover-link" href="{% url 'main:scenario-list' %}"><img src="{% static 'main/images/star_menu.png' %}"> Сценарии</a>
         </li>
-          <li class="nav-item">
-          <a class="nav-link fw-bold fs-3 text hover-link" href="{% url 'main:profile' %}"><img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
-        </li>
+
+          <li class="nav-item dropdown">
+              <a class="nav-link fw-bold fs-3 text hover-link dropdown-toggle" href="{% if request.user.is_authenticated %}{% url 'main:player_profile' request.user.pk %}{% else %}{% url 'login' %}{% endif %}" id="navbarDropdown" role="button" aria-expanded="false">
+                  <img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
+              <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
+                  {% if request.user.is_authenticated %}
+                  {% if request.user.user_type == 'manager' %}
+                  <li><a class="dropdown-item" href="{% url 'main:player_list' %}">Список игроков</a></li>
+                  {% endif %}
+                  <li>
+                      <form method="post" action="{% url 'logout' %}" class="m-0">
+                          {% csrf_token %}
+                          <button type="submit" class="dropdown-item">Выйти</button>
+                      </form>
+                  </li>
+                  {% endif %}
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Отделенная ссылка</a></li>
+                </ul>
+            </li>
+
+
       </ul>
     </div>
 </div>
 </nav>
+
+<style>
+    nav.navbar .dropdown:hover > .dropdown-menu {
+ display: block;
+}
+
+    /* Устанавливаем ширину выпадающего меню на 100% от родительского элемента */
+.nav-item.dropdown .dropdown-menu {
+    width: 100%;
+}
+
+/* Для лучшего внешнего вида, возможно, нужно убрать выравнивание по правому краю */
+.nav-item.dropdown .dropdown-menu-lg-end {
+    left: 0;
+    right: 0;
+}
+
+/* Дополнительно: чтобы меню не пряталось за пределами родительского элемента */
+.nav-item.dropdown {
+    position: relative;
+}
+</style>

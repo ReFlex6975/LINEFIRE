@@ -1,0 +1,53 @@
+{% load static %}
+
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
+
+<div class="container pb-5 pt-5">
+    <h1 class="text-center mb-4">Список игроков</h1>
+
+        <!-- Кнопки для сортировки игроков -->
+    <div class="text-center mb-4">
+        <div class="btn-group" role="group" aria-label="Сортировка">
+            <a href="{% url 'main:player_list' %}?sort_by=username" class="btn btn-secondary {% if sort_by == 'username' %}active{% endif %}">По логину</a>
+            <a href="{% url 'main:player_list' %}?sort_by=email" class="btn btn-secondary {% if sort_by == 'email' %}active{% endif %}">По email</a>
+            <a href="{% url 'main:player_list' %}?sort_by=first_name" class="btn btn-secondary {% if sort_by == 'first_name' %}active{% endif %}">По имени</a>
+            <a href="{% url 'main:player_list' %}?sort_by=last_name" class="btn btn-secondary {% if sort_by == 'last_name' %}active{% endif %}">По фамилии</a>
+        </div>
+    </div>
+
+    <!-- Форма для поиска игроков -->
+    <div class="text-center mb-4">
+        <form method="GET" action="{% url 'main:player_list' %}" class="d-flex mb-4">
+            <a href="{% url 'main:register_player' %}" class="btn btn-success">Создать</a>
+        <input type="text" name="search" class="form-control me-2" placeholder="Поиск игроков по логину, почте, имени и/или фамилии." value="{{ search_query }}">
+        <button type="submit" class="btn btn-primary me-2">Поиск</button>
+        <a href="{% url 'main:player_list' %}" class="btn btn-secondary">Очистить</a>
+        </form>
+    </div>
+
+    <div class="row">
+        {% for player in players %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Логин:</strong> {{ player.username }}</h5>
+                    <p class="card-text"><strong>Почта:</strong> {{ player.email }}</p>
+                    <p class="card-text"><strong>Имя:</strong> {{ player.first_name }}</p>
+                    <p class="card-text"><strong>Фамилия:</strong> {{ player.last_name }}</p>
+                    <a href="{% url 'main:player_profile' player.pk %}" class="btn btn-info mt-3">Профиль</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-warning text-center" role="alert">
+                Игроки не найдены.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}

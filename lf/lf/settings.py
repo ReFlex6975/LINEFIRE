@@ -153,7 +153,7 @@ CSRF_TRUSTED_ORIGINS = ['https://d379-188-75-213-6.ngrok-free.app']
 LOGIN_REDIRECT_URL = reverse_lazy("main:profile")
 LOGOUT_REDIRECT_URL = 'login'
 
-AUTH_USER_MODEL = 'main.Buyer'
+AUTH_USER_MODEL = 'main.CustomUser'
 
 # URL для медиа-файлов
 MEDIA_URL = '/media/'

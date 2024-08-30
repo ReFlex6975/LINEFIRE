@@ -5,6 +5,7 @@
 {% include 'layout/top.html' %}
 {% include 'layout/navbar.html' %}
 
+
 <!--СЛАЙДЕР-->
 <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -46,12 +47,6 @@
 </div>
 <!--КОНЕЦ-СЛАЙДЕР-->
 
-
-<!--{% if user.is_authenticated %}-->
-<!--            <div class="text-center mb-3">-->
-<!--                <p>привет</p>-->
-<!--            </div>-->
-<!--        {% endif %}-->
 
 <style>
 #openModal {
@@ -123,7 +118,7 @@
             </div>
         </div>
         <div class="text-center pt-5 pb-5">
-            <a href="" class="nav-link fw-bold fs-3 text text-secondary">Узнать больше</a>
+            <a href="{% url 'main:section_list' %}" class="nav-link fw-bold fs-3 text">Узнать больше></a>
         </div>
     </div>
 <!--КОНЕЦ-ЧТО ТАКОЕ ЛАЗЕРТАГ?-->

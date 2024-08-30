@@ -1,0 +1,16 @@
+{% load static %}
+
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
+
+<div class="container">
+<h2>Регистрация Игрока</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+</form>
+</div>
+
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}

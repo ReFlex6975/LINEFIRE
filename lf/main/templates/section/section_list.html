@@ -1,0 +1,49 @@
+{% load static %}
+
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
+
+<style>
+        .logout-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 3px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            height: 30px;
+        }
+        .logout-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+
+<div class="container mt-5 mb-5">
+    <div class="text-center">
+        <a href="{% url 'main:mainpage' %}" class="btn btn-primary logout-button">Назад</a>
+    </div>
+    {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+    <div class="text-center mb-4 mt-4">
+        <a href="{% url 'main:add_section' %}" class="btn btn-primary">Добавить секцию</a>
+    </div>
+    {% endif %}
+    <div class="row">
+        {% for section in sections %}
+        <div class="col-sm-6">
+            <p class="fw-bold fs-2 text-center" style="color:#fc0e0e">{{ section.title }}</p>
+            <p class="fs-5">{{ section.content|linebreaksbr }}</p>
+            {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+            <div class="text-center mt-2">
+                <a href="{% url 'main:edit_section' section.pk %}" class="btn btn-warning">Редактировать</a>
+                <a href="{% url 'main:delete_section' section.pk %}" class="btn btn-danger">Удалить</a>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}

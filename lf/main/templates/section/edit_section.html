@@ -1,0 +1,16 @@
+{% load static %}
+
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
+
+<div class="container mt-5 mb-5">
+<h1>Редактировать секцию</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Обновить</button>
+    </form>
+</div>
+
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}

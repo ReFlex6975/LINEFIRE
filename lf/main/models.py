@@ -1,36 +1,22 @@
-from django.contrib.auth.models import AbstractUser, Group
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models.signals import post_migrate
-from django.dispatch import receiver
 from django.urls import reverse
+from django.conf import settings
 
 
-# Create your models here.
-class Buyer(AbstractUser):
-    fio = models.CharField(max_length=30, unique=False)  # Полное имя
-    dob = models.DateField(null=True, blank=True)  # Дата рождения
 
-    def __str__(self):
-        return self.username
-
-    class Meta:
-        verbose_name = 'Buyer'
-        verbose_name_plural = 'Buyers'
-
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='buyer_set',  # Измените related_name для предотвращения конфликта
-        blank=True,
-        help_text='The groups this user belongs to.',
-        verbose_name='groups',
+class CustomUser(AbstractUser):
+    USER_TYPE_CHOICES = (
+        ('manager', 'Manager'),
+        ('player', 'Player'),
     )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='buyer_set',  # Измените related_name для предотвращения конфликта
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions',
-    )
+    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
+
+    def is_manager(self):
+        return self.user_type == 'manager'
+
+    def is_player(self):
+        return self.user_type == 'player'
 
 
 # ----------------------------------------------------------------------------------
@@ -57,6 +43,17 @@ class Scenario(models.Model):
     description = models.TextField()
     video_url = models.URLField()
     image = models.ImageField(upload_to='scenarios/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+# ----------------------------------------------------------------------------------
+
+class Section(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='sections')
 
     def __str__(self):
         return self.title

@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls', namespace='main')),  # Используйте это, если вам нужно пространство имен
+    path('', include('main.urls', namespace='main')),
     path('captcha/', include('captcha.urls')),
     path('accounts/', include("django.contrib.auth.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

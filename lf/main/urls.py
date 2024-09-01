@@ -32,4 +32,10 @@ urlpatterns = [
     path('sections/edit/<int:pk>/', edit_section, name='edit_section'),
     path('sections/delete/<int:pk>/', delete_section, name='delete_section'),
     path('player/<int:pk>/', player_profile, name='player_profile'),
+    path('player/<int:pk>/change-password/', views.change_password, name='change_password'),
+    path('player/<int:pk>/delete/', views.delete_player, name='delete_player'),
+    path('equipment/', views.equipment_list, name='equipment_list'),
+    path('equipment/add/', views.add_equipment, name='add_equipment'),
+    path('equipment/edit/<int:pk>/', views.edit_equipment, name='edit_equipment'),
+    path('equipment/delete/<int:pk>/', views.delete_equipment, name='delete_equipment'),
 ]

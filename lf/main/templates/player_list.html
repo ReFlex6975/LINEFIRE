@@ -35,7 +35,17 @@
                     <p class="card-text"><strong>Почта:</strong> {{ player.email }}</p>
                     <p class="card-text"><strong>Имя:</strong> {{ player.first_name }}</p>
                     <p class="card-text"><strong>Фамилия:</strong> {{ player.last_name }}</p>
-                    <a href="{% url 'main:player_profile' player.pk %}" class="btn btn-info mt-3">Профиль</a>
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- Кнопка для перехода в профиль -->
+                        <a href="{% url 'main:player_profile' player.pk %}" class="btn btn-info">Профиль</a>
+                        <!-- Кнопка для смены пароля -->
+                        <a href="{% url 'main:change_password' player.pk %}" class="btn btn-warning">Сменить</a>
+                        <!-- Кнопка для удаления игрока -->
+                        <form method="post" action="{% url 'main:delete_player' player.pk %}" class="m-0">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этого игрока?');">Удалить</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 
@@ -14,9 +15,10 @@ from django.views.generic import FormView, ListView, DetailView, CreateView, Upd
 from django.utils.decorators import method_decorator
 
 from .decorators import manager_required
-from .forms import ContactForm, PolygonForm, ScenarioForm, ManagerRegistrationForm, PlayerRegistrationForm, SectionForm
+from .forms import ContactForm, PolygonForm, ScenarioForm, ManagerRegistrationForm, PlayerRegistrationForm, SectionForm, \
+    EquipmentForm
 import telegram
-from .models import Polygon, Scenario, CustomUser, Section
+from .models import Polygon, Scenario, CustomUser, Section, Equipment
 
 
 def mainpage(request):
@@ -271,3 +273,82 @@ def delete_section(request, pk):
 def player_profile(request, pk):
     player = get_object_or_404(CustomUser, pk=pk)
     return render(request, 'player_profile.html', {'player': player})
+
+
+@login_required
+@user_passes_test(manager_required)
+def delete_player(request, pk):
+    player = get_object_or_404(CustomUser, pk=pk)
+    if request.method == 'POST':
+        player.delete()
+        return redirect('main:player_list')
+
+
+@login_required
+@user_passes_test(manager_required)
+def change_password(request, pk):
+    # Получаем пользователя, чей пароль нужно изменить
+    user = get_object_or_404(CustomUser, pk=pk)
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Обновляем сессию, чтобы пользователь оставался авторизованным
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Пароль был успешно изменен.')
+            return redirect('main:player_list')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки.')
+    else:
+        form = PasswordChangeForm(user)
+
+    return render(request, 'main/change_password.html', {
+        'form': form,
+        'player': user
+    })
+
+
+# -----------------------------------------------------------------------------------
+
+
+def equipment_list(request):
+    equipment = Equipment.objects.all()
+    return render(request, 'equipment/equipment_list.html', {'equipment': equipment})
+
+
+@login_required
+@user_passes_test(manager_required)
+def add_equipment(request):
+    if request.method == 'POST':
+        form = EquipmentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('main:equipment_list')
+    else:
+        form = EquipmentForm()
+    return render(request, 'equipment/add_equipment.html', {'form': form})
+
+
+@login_required
+@user_passes_test(manager_required)
+def edit_equipment(request, pk):
+    equipment = get_object_or_404(Equipment, pk=pk)
+    if request.method == 'POST':
+        form = EquipmentForm(request.POST, request.FILES, instance=equipment)
+        if form.is_valid():
+            form.save()
+            return redirect('main:equipment_list')
+    else:
+        form = EquipmentForm(instance=equipment)
+    return render(request, 'equipment/edit_equipment.html', {'form': form})
+
+
+@login_required
+@user_passes_test(manager_required)
+def delete_equipment(request, pk):
+    equipment = get_object_or_404(Equipment, pk=pk)
+    if request.method == 'POST':
+        equipment.delete()
+        return redirect('main:equipment_list')
+    return render(request, 'equipment/delete_equipment.html', {'equipment': equipment})

@@ -1,0 +1,37 @@
+{% load static %}
+
+{% include 'layout/top.html' %}
+{% include 'layout/navbar.html' %}
+
+<div class="container mt-5 mb-5">
+        <h1>Список оборудования</h1>
+        {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+        <a href="{% url 'main:add_equipment' %}" class="btn btn-primary mb-3">Добавить оборудование</a>
+        {% endif %}
+        <div class="row">
+            {% for item in equipment %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    {% if item.image1 %}
+                    <img src="{{ item.image1.url }}" class="card-img-top" alt="{{ item.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <p class="card-text"><strong>Цена:</strong> {{ item.price }} руб.</p>
+                        {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+                        <a href="{% url 'main:edit_equipment' item.pk %}" class="btn btn-warning">Изменить</a>
+                        <form method="post" action="{% url 'main:delete_equipment' item.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить это оборудование?');">Удалить</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% include 'layout/footer.html' %}
+{% include 'layout/bottom.html' %}

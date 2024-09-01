@@ -2,7 +2,7 @@ from django import forms
 from captcha.fields import CaptchaField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
-from .models import Polygon, Scenario, CustomUser, Section
+from .models import Polygon, Scenario, CustomUser, Section, Equipment
 from django.contrib.auth.hashers import make_password
 
 
@@ -62,3 +62,12 @@ class SectionForm(forms.ModelForm):
     class Meta:
         model = Section
         fields = ['title', 'content']
+
+
+# ______________________________________________________________________________________
+
+
+class EquipmentForm(forms.ModelForm):
+    class Meta:
+        model = Equipment
+        fields = ['name', 'description', 'price', 'image1', 'image2', 'image3', 'image4', 'image5']

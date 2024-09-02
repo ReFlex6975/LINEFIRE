@@ -98,19 +98,4 @@ class Equipment(models.Model):
         super().delete(*args, **kwargs)
 
 
-class Gamer(models.Model):
-    name = models.CharField(max_length=100)
-    gamer_id = models.IntegerField()
-    team_color = models.IntegerField()
-    wiapon_damage = models.IntegerField()
-    tager_type = models.IntegerField()
-    fire_count = models.IntegerField()
-    frags = models.IntegerField()
-    killed = models.IntegerField()
-    medicine = models.IntegerField()
-    ammo = models.IntegerField()
-    damage = models.IntegerField()
-    game_time = models.DurationField()
 
-    def __str__(self):
-        return self.name

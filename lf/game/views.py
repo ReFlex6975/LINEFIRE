@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User
-from .models import GameFile
+from .models import GameFile, Gamer
 from .forms import GameFileForm, EditGamerForm
 
 

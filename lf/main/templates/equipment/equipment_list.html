@@ -5,7 +5,7 @@
 
 <div class="container mt-5 mb-5">
         <p class="fw-bold fs-2 text-center" style="color:#fc0e0e">ОБОРУДОВАНИЯ ДЛЯ ЛАЗЕРТАГА</p>
-        {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+        {% if request.user.is_authenticated and request.user.is_superuser %}
         <div class="text-center">
             <a href="{% url 'main:add_equipment' %}" class="btn btn-success mb-3">Добавить оборудование</a>
         </div>
@@ -21,7 +21,7 @@
                         <h5 class="card-title">{{ item.name }}</h5>
                         <p class="card-text">{{ item.description }}</p>
                         <p class="card-text"><strong>Цена:</strong> {{ item.price }} руб.</p>
-                        {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+                        {% if request.user.is_authenticated and request.user.is_superuser %}
                         <a href="{% url 'main:edit_equipment' item.pk %}" class="btn btn-warning">Изменить</a>
                         <form method="post" action="{% url 'main:delete_equipment' item.pk %}" style="display:inline;">
                             {% csrf_token %}

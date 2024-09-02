@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Files</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <h1>Uploaded Game Files</h1>
+    <table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>File Name</th>
+            <th>Upload Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for file in files %}
+            <tr>
+                <td>{{ file.id }}</td>
+                <td>{{ file.file.name }}</td>
+                <td>{{ file.uploaded_at }}</td>
+                <td>
+                    <a href="{% url 'game:edit_gamer' file_id=file.id %}">Edit</a>
+                    <a href="{% url 'game:delete_file' file_id=file.id %}">Delete</a>
+                    <a href="{% url 'game:file_stats' file_id=file.id %}">View Stats</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

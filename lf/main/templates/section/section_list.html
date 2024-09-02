@@ -24,7 +24,7 @@
     <div class="text-center">
         <a href="{% url 'main:mainpage' %}" class="btn btn-primary logout-button">Назад</a>
     </div>
-    {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+    {% if request.user.is_authenticated and request.user.is_superuser %}
     <div class="text-center mb-4 mt-4">
         <a href="{% url 'main:add_section' %}" class="btn btn-primary">Добавить секцию</a>
     </div>
@@ -34,7 +34,7 @@
         <div class="col-sm-6">
             <p class="fw-bold fs-2 text-center" style="color:#fc0e0e">{{ section.title }}</p>
             <p class="fs-5">{{ section.content|linebreaksbr }}</p>
-            {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+            {% if request.user.is_authenticated and request.user.is_superuser %}
             <div class="text-center mt-2">
                 <a href="{% url 'main:edit_section' section.pk %}" class="btn btn-warning">Редактировать</a>
                 <a href="{% url 'main:delete_section' section.pk %}" class="btn btn-danger">Удалить</a>

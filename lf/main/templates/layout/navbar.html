@@ -41,24 +41,36 @@
           <a class="nav-link fw-bold fs-4 text hover-link" href="{% url 'main:equipment_list' %}"><img src="{% static 'main/images/star_menu.png' %}"> Оборудование</a>
         </li>
 
+
+
           <li class="nav-item dropdown">
               <a class="nav-link fw-bold fs-4 text hover-link dropdown-toggle" href="{% if request.user.is_authenticated %}{% url 'main:player_profile' request.user.pk %}{% else %}{% url 'login' %}{% endif %}" id="navbarDropdown" role="button" aria-expanded="false">
                   <img src="{% static 'main/images/star_menu.png' %}"> Личный кабинет</a>
+              {% if request.user.is_authenticated %}
               <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-                  {% if request.user.is_authenticated %}
+
                   {% if request.user.user_type == 'manager' %}
                   <li><a class="dropdown-item" href="{% url 'main:player_list' %}">Список игроков</a></li>
+
+                  <li><a class="dropdown-item" href="{% url 'game:upload' %}">Загрузить игру</a></li>
+                  <li><hr class="dropdown-divider"></li>
                   {% endif %}
+                  {% if request.user.is_superuser %}
+                  <li>
+                      <a class="dropdown-item" href="#">Список менеджеров</a>
+                  </li>
+                  {% endif %}
+
+
                   <li>
                       <form method="post" action="{% url 'logout' %}" class="m-0">
                           {% csrf_token %}
                           <button type="submit" class="dropdown-item">Выйти</button>
                       </form>
                   </li>
-                  {% endif %}
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">В процессе</a></li>
+
                 </ul>
+              {% endif %}
             </li>
 
 

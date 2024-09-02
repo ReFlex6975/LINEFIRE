@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game File Stats</title>
+</head>
+<body>
+    <h1>Statistics for {{ file.file.name }}</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Shooter GamerID</th>
+                <th>Name</th>
+                <th>Team Color</th>
+                <th>Weapon Damage</th>
+                <th>Fire Count</th>
+                <th>Frags</th>
+                <th>Killed</th>
+                <th>Medicine</th>
+                <th>Ammo</th>
+                <th>Total Damage</th>
+                <th>Game Time</th>
+                <th>Total Hits</th>
+                <th>Hits by Target</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for shooter_id, data in stats.items %}
+                <tr>
+                    <td>{{ shooter_id }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.team_color }}</td>
+                    <td>{{ data.weapon_damage }}</td>
+                    <td>{{ data.fire_count }}</td>
+                    <td>{{ data.frags }}</td>
+                    <td>{{ data.killed }}</td>
+                    <td>{{ data.medicine }}</td>
+                    <td>{{ data.ammo }}</td>
+                    <td>{{ data.damage }}</td>
+                    <td>{{ data.game_time }}</td>
+                    <td>{{ data.total_hits }}</td>
+                    <td>
+                        <ul>
+                            {% for target_id, count in data.targets.items %}
+                                <li>TargetID {{ target_id }}: {{ count }} hit(s)</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'game:file_list' %}">Back to File List</a>
+</body>
+</html>

@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
-from .decorators import manager_required
+from .decorators import manager_required, superuser_required
 from .forms import ContactForm, ScenarioForm, ManagerRegistrationForm, PlayerRegistrationForm, SectionForm, \
     EquipmentForm
 from .models import Polygon, Scenario, CustomUser, Section, Equipment
@@ -50,15 +50,6 @@ def statistics(request):
     return render(request, 'main/statistics.html', {'title': 'Статистика боёв'})
 
 
-def polygons(request):
-    polygons_list = Polygon.objects.all()
-    return render(request, 'main/polygon.html', {'polygons': polygons_list})
-
-
-def scenarios(request):
-    return render(request, 'main/scenarios.html', {'title': 'Сценарии'})
-
-
 def cabinet(request):
     return render(request, 'main/cabinet.html', {'title': 'Личный кабинет'})
 
@@ -84,18 +75,21 @@ def profile_view(request):
     return redirect('main:player_profile', pk=user.pk)
 
 
+# -----------------------------------------------------------------------------------
+
+
 class PolygonListView(ListView):
     model = Polygon
     template_name = 'polygon/polygon.html'
 
 
-@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
+@method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class PolygonDetailView(DetailView):
     model = Polygon
     template_name = 'polygon_detail.html'
 
 
-@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
+@method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class PolygonCreateView(CreateView):
     model = Polygon
     fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
@@ -103,7 +97,7 @@ class PolygonCreateView(CreateView):
     success_url = reverse_lazy('main:polygons')
 
 
-@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
+@method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class PolygonUpdateView(UpdateView):
     model = Polygon
     fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
@@ -111,7 +105,7 @@ class PolygonUpdateView(UpdateView):
     success_url = reverse_lazy('main:polygons')
 
 
-@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
+@method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class PolygonDeleteView(DeleteView):
     model = Polygon
     template_name = 'polygon/polygon_confirm_delete.html'
@@ -125,7 +119,7 @@ class ScenarioListView(ListView):
     context_object_name = 'scenarios'  # Имя переменной для доступа к данным в шаблоне
 
 
-@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
+@method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class ScenarioCreateView(CreateView):
     model = Scenario
     form_class = ScenarioForm
@@ -133,7 +127,7 @@ class ScenarioCreateView(CreateView):
     success_url = reverse_lazy('main:scenario-list')
 
 
-@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
+@method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class ScenarioUpdateView(UpdateView):
     model = Scenario
     form_class = ScenarioForm
@@ -141,7 +135,7 @@ class ScenarioUpdateView(UpdateView):
     success_url = reverse_lazy('main:scenario-list')
 
 
-@method_decorator([login_required, user_passes_test(manager_required)], name='dispatch')
+@method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class ScenarioDeleteView(DeleteView):
     model = Scenario
     template_name = 'scenarios/scenario_confirm_delete.html'
@@ -154,6 +148,7 @@ User = get_user_model()
 
 
 @login_required
+@superuser_required
 def register_manager(request):
     if request.method == 'POST':
         form = ManagerRegistrationForm(request.POST)
@@ -176,6 +171,9 @@ def register_player(request):
     else:
         form = PlayerRegistrationForm()
     return render(request, 'registration/register_player.html', {'form': form})
+
+
+# -----------------------------------------------------------------------------------
 
 
 @login_required
@@ -221,7 +219,7 @@ def section_list(request):
 
 
 @login_required
-@user_passes_test(manager_required)
+@superuser_required
 def add_section(request):
     if request.method == 'POST':
         form = SectionForm(request.POST)
@@ -236,7 +234,7 @@ def add_section(request):
 
 
 @login_required
-@user_passes_test(manager_required)
+@superuser_required
 def edit_section(request, pk):
     section = get_object_or_404(Section, pk=pk)
     if request.method == 'POST':
@@ -250,7 +248,7 @@ def edit_section(request, pk):
 
 
 @login_required
-@user_passes_test(manager_required)
+@superuser_required
 def delete_section(request, pk):
     section = get_object_or_404(Section, pk=pk)
     if request.method == 'POST':
@@ -311,7 +309,7 @@ def equipment_list(request):
 
 
 @login_required
-@user_passes_test(manager_required)
+@superuser_required
 def add_equipment(request):
     if request.method == 'POST':
         form = EquipmentForm(request.POST, request.FILES)
@@ -324,7 +322,7 @@ def add_equipment(request):
 
 
 @login_required
-@user_passes_test(manager_required)
+@superuser_required
 def edit_equipment(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     if request.method == 'POST':
@@ -338,10 +336,14 @@ def edit_equipment(request, pk):
 
 
 @login_required
-@user_passes_test(manager_required)
+@superuser_required
 def delete_equipment(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     if request.method == 'POST':
         equipment.delete()
         return redirect('main:equipment_list')
     return render(request, 'equipment/delete_equipment.html', {'equipment': equipment})
+
+
+# -----------------------------------------------------------------------------------
+

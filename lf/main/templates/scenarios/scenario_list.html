@@ -8,7 +8,7 @@
         <p class=" fw-bold fs-2 " style="color:#fc0e0e">СЦЕНАРИИ ИГР В ЛАЗЕРТАГ</p>
         <p class="fs-5">Военно-тактический клуб «Линия Огня» в Чите предлагает вам множество увлекательных сценариев для лазертага:</p>
     </div>
-    {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+    {% if request.user.is_authenticated and request.user.is_superuser %}
     <div class="text-center">
         <a href="{% url 'main:scenario-create' %}" class="btn btn-success mb-3">Добавить сценарий</a>
     </div>
@@ -22,7 +22,7 @@
             <div class="pt-3 fs-5">
                 <p>{{ scenario.description }}</p>
             </div>
-            {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
+            {% if request.user.is_authenticated and request.user.is_superuser %}
             <div class="text-center">
                 <a href="{% url 'main:scenario-edit' scenario.pk %}" class="btn btn-primary mb-2">Редактировать</a>
                 <a href="{% url 'main:scenario-delete' scenario.pk %}" class="btn btn-danger mb-2">Удалить</a>

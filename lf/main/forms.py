@@ -1,9 +1,7 @@
 from django import forms
 from captcha.fields import CaptchaField
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User, Group
 from .models import Polygon, Scenario, CustomUser, Section, Equipment
-from django.contrib.auth.hashers import make_password
 
 
 class ContactForm(forms.Form):
@@ -54,6 +52,7 @@ class PlayerRegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
 
 # ______________________________________________________________________________________
 

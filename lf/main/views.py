@@ -1,24 +1,18 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model, update_session_auth_hash
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
-
-from django.conf import settings
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
-from django.urls import reverse_lazy, reverse
-from django.views.generic import FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
-
 from .decorators import manager_required
-from .forms import ContactForm, PolygonForm, ScenarioForm, ManagerRegistrationForm, PlayerRegistrationForm, SectionForm, \
+from .forms import ContactForm, ScenarioForm, ManagerRegistrationForm, PlayerRegistrationForm, SectionForm, \
     EquipmentForm
-import telegram
 from .models import Polygon, Scenario, CustomUser, Section, Equipment
+from django.contrib.auth.views import LoginView
 
 
 def mainpage(request):
@@ -33,8 +27,8 @@ def mainpage(request):
             send_mail(
                 f'Новая заявка от {name}',
                 f'Почта: {email}\nСообщение: {message}',
-                'reflex002@bk.ru',  # Замените на ваш email
-                ['reflex002@bk.ru'],  # Замените на email получателя
+                'reflex002@bk.ru',  # ваш email
+                ['reflex002@bk.ru'],  # email получателя
                 fail_silently=False,
             )
 
@@ -42,7 +36,6 @@ def mainpage(request):
     else:
         form = ContactForm()
 
-    # Определяем права пользователя
     is_admin = request.user.is_superuser
     is_manager = request.user.groups.filter(name='Менеджеры').exists() if request.user.is_authenticated else False
 

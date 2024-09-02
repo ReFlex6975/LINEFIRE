@@ -4,9 +4,11 @@
 {% include 'layout/navbar.html' %}
 
 <div class="container mt-5 mb-5">
-        <h1>Список оборудования</h1>
+        <p class="fw-bold fs-2 text-center" style="color:#fc0e0e">ОБОРУДОВАНИЯ ДЛЯ ЛАЗЕРТАГА</p>
         {% if request.user.is_authenticated and request.user.user_type == 'manager' %}
-        <a href="{% url 'main:add_equipment' %}" class="btn btn-primary mb-3">Добавить оборудование</a>
+        <div class="text-center">
+            <a href="{% url 'main:add_equipment' %}" class="btn btn-success mb-3">Добавить оборудование</a>
+        </div>
         {% endif %}
         <div class="row">
             {% for item in equipment %}

@@ -1,5 +1,3 @@
-import os
-
 from django.contrib.auth.models import AbstractUser
 from django.core.files.storage import default_storage
 from django.db import models
@@ -59,6 +57,9 @@ class Section(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# ----------------------------------------------------------------------------------
 
 
 class Equipment(models.Model):

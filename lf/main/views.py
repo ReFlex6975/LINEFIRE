@@ -10,7 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.utils.decorators import method_decorator
 from .decorators import manager_required, superuser_required
 from .forms import ContactForm, ScenarioForm, ManagerRegistrationForm, PlayerRegistrationForm, SectionForm, \
-    EquipmentForm
+    EquipmentForm, PolygonForm
 from .models import Polygon, Scenario, CustomUser, Section, Equipment
 from django.contrib.auth.views import LoginView
 
@@ -80,7 +80,7 @@ def profile_view(request):
 
 class PolygonListView(ListView):
     model = Polygon
-    template_name = 'polygon/polygon.html'
+    template_name = 'polygon/polygon_list.html'
 
 
 @method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
@@ -92,7 +92,7 @@ class PolygonDetailView(DetailView):
 @method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class PolygonCreateView(CreateView):
     model = Polygon
-    fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
+    form_class = PolygonForm
     template_name = 'polygon/polygon_form.html'
     success_url = reverse_lazy('main:polygons')
 
@@ -100,7 +100,7 @@ class PolygonCreateView(CreateView):
 @method_decorator([login_required, user_passes_test(lambda u: u.is_superuser)], name='dispatch')
 class PolygonUpdateView(UpdateView):
     model = Polygon
-    fields = ['title', 'description', 'image1', 'image2', 'image3', 'image4']
+    form_class = PolygonForm
     template_name = 'polygon/polygon_edit.html'
     success_url = reverse_lazy('main:polygons')
 
@@ -325,6 +325,7 @@ def add_equipment(request):
 @superuser_required
 def edit_equipment(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
+    print(f"Editing equipment: {equipment.name}")  # Отладочный вывод в консоль
     if request.method == 'POST':
         form = EquipmentForm(request.POST, request.FILES, instance=equipment)
         if form.is_valid():
@@ -332,7 +333,10 @@ def edit_equipment(request, pk):
             return redirect('main:equipment_list')
     else:
         form = EquipmentForm(instance=equipment)
-    return render(request, 'equipment/edit_equipment.html', {'form': form})
+    return render(request, 'equipment/edit_equipment.html', {
+        'form': form,
+        'equipment': equipment
+    })
 
 
 @login_required
